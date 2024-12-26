@@ -3,20 +3,21 @@
 
 using namespace std;
 
-struct Node 
+class Node
 {
-    int coef; //系數
-    int exp;  //指數
-    Node* link; //下一個節點
+public:
+    int coef; //玒计
+    int exp;  //计
+    Node* link; //竊翴
 };
 
 class Polynomial
 {
 private:
-    Node* head; //頭
+    Node* head; //繷
 
-    //新節點
-    Node* createNode(int coef, int exp) 
+    //穝竊翴
+    Node* createNode(int coef, int exp)
     {
         Node* newNode = new Node;
         newNode->coef = coef;
@@ -25,12 +26,12 @@ private:
         return newNode;
     }
 
-    //刪除所有節點
-    void clear() 
+    //埃┮Τ竊翴
+    void clear()
     {
         if (!head) return;
         Node* curr = head->link;
-        while (curr != head) 
+        while (curr != head)
         {
             Node* temp = curr;
             curr = curr->link;
@@ -41,41 +42,41 @@ private:
     }
 
 public:
-    //建構函式
-    Polynomial() 
+    //篶ㄧΑ
+    Polynomial()
     {
         head = new Node;
         head->link = head;
     }
 
-    //複製
-    Polynomial(const Polynomial& other) 
+    //狡籹
+    Polynomial(const Polynomial& other)
     {
         head = new Node;
         head->link = head;
         Node* curr = other.head->link;
-        while (curr != other.head) 
+        while (curr != other.head)
         {
             addTerm(curr->coef, curr->exp);
             curr = curr->link;
         }
     }
 
-    //解構
-    ~Polynomial() 
+    //秆篶
+    ~Polynomial()
     {
         clear();
     }
 
-    //多載=
-    Polynomial& operator=(const Polynomial& other) 
+    //更=
+    Polynomial& operator=(const Polynomial& other)
     {
-        if (this == &other) return *this; //相同
+        if (this == &other) return *this; //
         clear();
         head = new Node;
         head->link = head;
         Node* curr = other.head->link;
-        while (curr != other.head) 
+        while (curr != other.head)
         {
             addTerm(curr->coef, curr->exp);
             curr = curr->link;
@@ -83,27 +84,27 @@ public:
         return *this;
     }
 
-    //新增多項式
-    void addTerm(int coef, int exp) 
+    //穝糤兜Α
+    void addTerm(int coef, int exp)
     {
         if (coef == 0) return;
         Node* prev = head;
         Node* curr = head->link;
-        while (curr != head && curr->exp > exp) 
+        while (curr != head && curr->exp > exp)
         {
             prev = curr;
             curr = curr->link;
         }
-        if (curr != head && curr->exp == exp) 
+        if (curr != head && curr->exp == exp)
         {
             curr->coef += coef;
-            if (curr->coef == 0) 
+            if (curr->coef == 0)
             {
                 prev->link = curr->link;
                 delete curr;
             }
         }
-        else 
+        else
         {
             Node* newNode = createNode(coef, exp);
             prev->link = newNode;
@@ -111,12 +112,12 @@ public:
         }
     }
 
-    //多載輸入
-    friend istream& operator>>(istream& is, Polynomial& x) 
+    //更块
+    friend istream& operator>>(istream& is, Polynomial& x)
     {
         int n;
-        is >> n; //讀取項數
-        for (int i = 0; i < n; ++i) 
+        is >> n; //弄兜计
+        for (int i = 0; i < n; ++i)
         {
             int coef, exp;
             is >> coef >> exp;
@@ -125,17 +126,17 @@ public:
         return is;
     }
 
-    //多載輸出
-    friend ostream& operator<<(ostream& os, const Polynomial& x) 
+    //更块
+    friend ostream& operator<<(ostream& os, const Polynomial& x)
     {
         Node* curr = x.head->link;
-        if (curr == x.head) 
+        if (curr == x.head)
         {
             os << "0";
         }
-        else 
+        else
         {
-            while (curr != x.head) 
+            while (curr != x.head)
             {
                 if (curr->coef > 0 && curr != x.head->link) os << "+";
                 os << curr->coef;
@@ -146,25 +147,25 @@ public:
         return os;
     }
 
-    //多載加法
-    Polynomial operator+(const Polynomial& b) const 
+    //更猭
+    Polynomial operator+(const Polynomial& b) const
     {
         Polynomial result;
         Node* currA = head->link;
         Node* currB = b.head->link;
-        while (currA != head || currB != b.head) 
+        while (currA != head || currB != b.head)
         {
-            if (currA != head && (currB == b.head || currA->exp > currB->exp)) 
+            if (currA != head && (currB == b.head || currA->exp > currB->exp))
             {
                 result.addTerm(currA->coef, currA->exp);
                 currA = currA->link;
             }
-            else if (currB != b.head && (currA == head || currB->exp > currA->exp)) 
+            else if (currB != b.head && (currA == head || currB->exp > currA->exp))
             {
                 result.addTerm(currB->coef, currB->exp);
                 currB = currB->link;
             }
-            else 
+            else
             {
                 result.addTerm(currA->coef + currB->coef, currA->exp);
                 currA = currA->link;
@@ -174,12 +175,12 @@ public:
         return result;
     }
 
-    //多載減法
-    Polynomial operator-(const Polynomial& b) const 
+    //更搭猭
+    Polynomial operator-(const Polynomial& b) const
     {
         Polynomial result;
         Node* currB = b.head->link;
-        while (currB != b.head) 
+        while (currB != b.head)
         {
             result.addTerm(-currB->coef, currB->exp);
             currB = currB->link;
@@ -187,15 +188,15 @@ public:
         return *this + result;
     }
 
-    //多載乘法
-    Polynomial operator*(const Polynomial& b) const 
+    //更猭
+    Polynomial operator*(const Polynomial& b) const
     {
         Polynomial result;
         Node* currA = head->link;
-        while (currA != head) 
+        while (currA != head)
         {
             Node* currB = b.head->link;
-            while (currB != b.head) 
+            while (currB != b.head)
             {
                 result.addTerm(currA->coef * currB->coef, currA->exp + currB->exp);
                 currB = currB->link;
@@ -205,12 +206,12 @@ public:
         return result;
     }
 
-    //求值
-    double Evaluate(double x) const 
+    //―
+    double Evaluate(double x) const
     {
         float result = 0;
         Node* curr = head->link;
-        while (curr != head) 
+        while (curr != head)
         {
             result += curr->coef * pow(x, curr->exp);
             curr = curr->link;
@@ -221,26 +222,26 @@ public:
 
 int main() {
     Polynomial p1, p2;
-    cout << "輸入多項式1: ";
+    cout << "块兜Α1: ";
     cin >> p1;
-    cout << "輸入多項式2: ";
+    cout << "块兜Α2: ";
     cin >> p2;
 
-    cout << "多項式1:" << p1 << endl;
-    cout << "多項式2:" << p2 << endl;
+    cout << "兜Α1:" << p1 << endl;
+    cout << "兜Α2:" << p2 << endl;
 
-    cout << "相加: " << p1 + p2 << endl;
+    cout << ": " << p1 + p2 << endl;
 
-    cout << "相減: " << p1 - p2 << endl;
+    cout << "搭: " << p1 - p2 << endl;
 
-    cout << "相乘: " << p1 * p2 << endl;
+    cout << ": " << p1 * p2 << endl;
 
     double x;
-    cout << "請輸入多項式1的值:";
+    cout << "叫块兜Α1:";
     cin >> x;
     cout << "p1(" << x << ") = " << p1.Evaluate(x) << endl;
 
-    cout << "請輸入多項式2的值:";
+    cout << "叫块兜Α2:";
     cin >> x;
     cout << "p2(" << x << ") = " << p2.Evaluate(x) << endl;
 
