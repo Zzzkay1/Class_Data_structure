@@ -209,7 +209,7 @@ public:
     //¨D­È
     double Evaluate(double x) const
     {
-        float result = 0;
+        double result = 0;
         Node* curr = head->link;
         while (curr != head)
         {

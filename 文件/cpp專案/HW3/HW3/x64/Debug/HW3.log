@@ -1,3 +1,2 @@
 ﻿  241220.cpp
-C:\Users\a0987\Documents\GitHub\Class_Data_structure\文件\cpp專案\HW3\241220.cpp(215,34): warning C4244: '+=': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
-  HW3.vcxproj -> C:\Users\a0987\Documents\GitHub\Class_Data_structure\文件\cpp專案\HW3\x64\Debug\HW3.exe
+  HW3.vcxproj -> C:\Users\USER\Documents\GitHub\Class_Data_structure\文件\cpp專案\HW3\x64\Debug\HW3.exe
